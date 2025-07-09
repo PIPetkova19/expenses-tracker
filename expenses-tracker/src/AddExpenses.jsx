@@ -32,7 +32,7 @@ function AddExpenses() {
             window.alert("Enter a valid number");
             return;
         }
-        
+
         setAmount(value);
     }
 

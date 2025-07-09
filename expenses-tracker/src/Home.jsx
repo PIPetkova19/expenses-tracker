@@ -1,22 +1,18 @@
 
-import MyChart from './MyChart'; 
+import MonthlyChart from './MonthlyChart';
+import WeeklyChart from './WeeklyChart';
+
 function Home() {
     return (
         <div>
-            <div>
+            <div >
                 <p>Current balance</p>
                 <p>20 lv.</p>
             </div>
 
-            <div>
-                <p>Monthly report</p>
-                <div>
-                    <MyChart></MyChart>
-                </div>
-                  <p>Daily report</p>
-                <div>
-                    <MyChart></MyChart>
-                </div>
+            <div id="my-chart">
+                <MonthlyChart></MonthlyChart>
+                <WeeklyChart></WeeklyChart>
             </div>
         </div>
     );

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { ExpensesContext } from './ExpensesContext';
 
 function ExpensesTracker() {
-    const { expenses, setExpenses } = useContext(ExpensesContext); //!
+    const { expenses, setExpenses } = useContext(ExpensesContext);
 
     function deleteExpense(index) {
         setExpenses(prev => prev.filter((_, i) => i !== index));
@@ -24,15 +24,23 @@ function ExpensesTracker() {
                     {expenses.length === 0 ? (
                         <tr><td colSpan="5">No expenses</td></tr>
                     ) : (
-                        expenses.map((expense, index) => (
-                            <tr key={index}>
-                                <td>{expense.name}</td>
-                                <td>{expense.amount}</td>
-                                <td>{expense.category}</td>
-                                <td>{expense.date}</td>
-                                <td><button onClick={() => deleteExpense(index)}>Delete</button></td>
-                            </tr>
-                        ))
+                        expenses.map((expense, index) => {
+                            const dateObj = new Date(expense.date);
+                            
+                            const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/
+                            ${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/
+                            ${dateObj.getFullYear()}`;
+
+                            return (
+                                <tr key={index}>
+                                    <td>{expense.name}</td>
+                                    <td>{expense.amount}</td>
+                                    <td>{expense.category}</td>
+                                    <td>{formattedDate}</td>
+                                    <td><button onClick={() => deleteExpense(index)}>Delete</button></td>
+                                </tr>
+                            );
+                        })
                     )}
                 </tbody>
             </table>
