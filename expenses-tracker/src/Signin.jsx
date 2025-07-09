@@ -1,9 +1,10 @@
-function Login() {
-    //htmlFor вместо for onSubmit={login}
+function Signin() {
     return (
         <div  className="d-flex  justify-content-center align-items-center" style={{ height: '500px' }}>
             <form>
-                <div id="login-container" className="form-group">
+                <div id="signin-container" className="form-group">
+                    <label htmlFor="fullName">Name</label>
+                    <input type="text" id="fullName" className="form-control mb-3"></input>
                     <label htmlFor="email">Email</label>
                     <input type="email" id="email" className="form-control mb-3"></input>
                     <label htmlFor="password">Password</label>
@@ -15,4 +16,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Signin
