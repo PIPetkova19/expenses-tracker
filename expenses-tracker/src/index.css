@@ -5,8 +5,14 @@
   gap: 20px;
 }
 
-#login-container , #signin-container{
+#login-container {
   border-radius: 5px;
   background-color: rgb(255, 177, 193);
   padding: 60px 40px;
+}
+
+ #signin-container{
+  border-radius: 5px;
+  background-color: rgb(255, 177, 193);
+  padding: 60px 50px;
 }
