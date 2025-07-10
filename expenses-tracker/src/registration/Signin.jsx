@@ -1,36 +1,37 @@
-import React, { useContext, useState } from 'react';
-import { UserContext } from '../context/UserContext';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { auth } from '../firebase/firebase';
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function Signin() {
-    const { users, setUsers } = useContext(UserContext);
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    function addUsers(e) {
+    const handleSignin = async (e) => {
         e.preventDefault();
 
         if (!fullName || !email || !password) {
-            window.alert("Please fill in all fields.");
+            alert("Fill in all the fields");
             return;
         }
 
-        const alreadySigned = users.find(user => user.email === email);
-        if (alreadySigned) {
-            window.alert("This email is already logged in!");
+        try {
+            // Създава нов потребител с имейл и парола в Firebase Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            // Обновява профила на новия потребител, като добавя име
+            await updateProfile(userCredential.user, { displayName: fullName });
+            alert("Sign in successfull!");
+            setFullName('');
+            setEmail('');
+            setPassword('');
+            navigate("/");
+        } catch (error) {
+            alert("Error: " + error.message);
         }
-        else {
-            window.alert("Sign in successfull!");
-        }
-
-        const newUsers = { fullName, email, password };
-        setUsers(prev => [...prev, newUsers]);
-
-        setFullName("");
-        setEmail("");
-        setPassword("");
-    }
+    };
 
     function handleFullNameChange(event) {
         setFullName(event.target.value);
@@ -46,7 +47,7 @@ function Signin() {
 
     return (
         <div className="d-flex  justify-content-center align-items-center" style={{ height: '500px' }}>
-            <form onSubmit={addUsers}>
+            <form onSubmit={handleSignin}>
                 <div id="signin-container" className="form-group">
                     <label htmlFor="fullName">Name</label>
                     <input type="text" id="fullName" className="form-control mb-3" value={fullName} onChange={handleFullNameChange} required></input>

@@ -1,32 +1,33 @@
-import React, { useContext, useState } from 'react';
-import { UserContext } from '../context/UserContext';
+import { useState } from 'react';
+import { auth } from '../firebase/firebase';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-    const { users, setUsers } = useContext(UserContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    function handleLogin(e) {
+    const handleLogin = async (e) => {
         e.preventDefault();
 
         if (!email || !password) {
-            window.alert("Please fill in all fields.");
+            alert("Fill in all the fields");
             return;
         }
 
-        const foundUser = users.find(user => user.email === email);
-
-        if (!foundUser) {
-            window.alert("Incorrect email");
-        } else if (foundUser.password !== password) {
-            window.alert("Incorrect password");
-        } else {
-            window.alert("Login successful");
+        try {
+            // Вход на потребител с имейл и парола чрез Firebase
+            await signInWithEmailAndPassword(auth, email, password);
+            alert("Login successfull!");
+            setEmail('');
+            setPassword('');
+            navigate("/");// навигира към Home след login
+        } catch (error) {
+            alert("Error: " + error.message);
         }
 
-        setEmail("");
-        setPassword("");
-    }
+    };
 
     function handleEmailChange(event) {
         setEmail(event.target.value);

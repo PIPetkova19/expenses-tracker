@@ -6,24 +6,36 @@ import ExpensesTracker from "./main-pages/ExpensesTracker";
 import AddExpenses from "./main-pages/AddExpenses";
 import Login from "./registration/Login";
 import { ExpensesProvider } from "./context/ExpensesContext";
-import { UserProvider } from "./context/UserContext";
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
- 
   return (
     <Router>
-    <UserProvider>    
-          <ExpensesProvider>
+      <AuthProvider>
+        <ExpensesProvider>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/add-expenses" element={<AddExpenses />} />
-            <Route path="/track-expenses" element={<ExpensesTracker />} />
-            <Route path="/log-in" element={<Login />} />
             <Route path="/sign-in" element={<Signin />} />
+            <Route path="/log-in" element={<Login />} />
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            } />
+            <Route path="/add-expenses" element={
+              <ProtectedRoute>
+                <AddExpenses />
+              </ProtectedRoute>
+            } />
+            <Route path="/track-expenses" element={
+              <ProtectedRoute>
+                <ExpensesTracker />
+              </ProtectedRoute>
+            } />
           </Routes>
         </ExpensesProvider>
-      </UserProvider>
+      </AuthProvider>
     </Router>
   );
 }
