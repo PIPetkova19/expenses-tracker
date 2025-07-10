@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from './UserContext';
+import { Link } from 'react-router-dom';
 
 function Signin() {
     const { users, setUsers } = useContext(UserContext);
@@ -22,7 +23,7 @@ function Signin() {
         else {
             window.alert("Sign in successfull!");
         }
-        
+
         const newUsers = { fullName, email, password };
         setUsers(prev => [...prev, newUsers]);
 
@@ -54,6 +55,10 @@ function Signin() {
                     <label htmlFor="password">Password</label>
                     <input type="password" id="password" className="form-control  mb-3" value={password} onChange={handlePasswordChange} required></input>
                     <input className="btn btn-primary" type="submit"></input>
+                    <div>
+                        <span id="login-msg"> Already have an account?</span>
+                        <Link id="login-link" to="/log-in" className="nav-link">Log in</Link>
+                    </div>
                 </div>
             </form>
         </div >
