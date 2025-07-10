@@ -19,7 +19,10 @@ function Signin() {
         if (alreadySigned) {
             window.alert("This email is already logged in!");
         }
-
+        else {
+            window.alert("Sign in successfull!");
+        }
+        
         const newUsers = { fullName, email, password };
         setUsers(prev => [...prev, newUsers]);
 

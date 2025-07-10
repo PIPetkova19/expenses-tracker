@@ -5,17 +5,15 @@ import Signin from "./Signin";
 import ExpensesTracker from "./ExpensesTracker";
 import AddExpenses from "./AddExpenses";
 import Login from "./Login";
-import { useState } from "react";
-import { ExpensesContext } from "./ExpensesContext";
-import { UserContext } from "./UserContext";
+import { ExpensesProvider } from "./ExpensesContext";
+import { UserProvider } from "./UserContext";
 
 function App() {
-  const [expenses, setExpenses] = useState([]); //!
-  const [users, setUsers] = useState([]);
+ 
   return (
     <Router>
-      <UserContext.Provider value={{ users, setUsers }}>
-        <ExpensesContext.Provider value={{ expenses, setExpenses }}>
+    <UserProvider>    
+          <ExpensesProvider>
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -24,8 +22,8 @@ function App() {
             <Route path="/log-in" element={<Login />} />
             <Route path="/sign-in" element={<Signin />} />
           </Routes>
-        </ExpensesContext.Provider>
-      </UserContext.Provider>
+        </ExpensesProvider>
+      </UserProvider>
     </Router>
   );
 }
