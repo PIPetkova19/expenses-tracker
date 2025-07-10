@@ -1,6 +1,6 @@
 
-import MonthlyChart from './MonthlyChart';
-import WeeklyChart from './WeeklyChart';
+import MonthlyChart from '../side-pages/MonthlyChart';
+import WeeklyChart from '../side-pages/WeeklyChart';
 
 function Home() {
     return (

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { ExpensesContext } from './ExpensesContext'; // !
+import { ExpensesContext } from '../context/ExpensesContext'; // !
 
 function AddExpenses() {
     const { expenses, setExpenses } = useContext(ExpensesContext);//!

@@ -9,7 +9,8 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
-import { ExpensesContext } from './ExpensesContext';
+
+import { ExpensesContext } from '../context/ExpensesContext';
 
 ChartJS.register(
     CategoryScale,

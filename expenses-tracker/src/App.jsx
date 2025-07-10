@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./Navbar";
-import Home from "./Home";
-import Signin from "./Signin";
-import ExpensesTracker from "./ExpensesTracker";
-import AddExpenses from "./AddExpenses";
-import Login from "./Login";
-import { ExpensesProvider } from "./ExpensesContext";
-import { UserProvider } from "./UserContext";
+import Navbar from "./side-pages/Navbar";
+import Home from "./main-pages/Home";
+import Signin from "./registration/Signin";
+import ExpensesTracker from "./main-pages/ExpensesTracker";
+import AddExpenses from "./main-pages/AddExpenses";
+import Login from "./registration/Login";
+import { ExpensesProvider } from "./context/ExpensesContext";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
  

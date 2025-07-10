@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ExpensesContext } from './ExpensesContext';
+import { ExpensesContext } from '../context/ExpensesContext';
 
 function ExpensesTracker() {
     const { expenses, setExpenses } = useContext(ExpensesContext);
