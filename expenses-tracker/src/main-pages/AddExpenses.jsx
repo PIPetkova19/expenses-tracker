@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
-import { ExpensesContext } from '../context/ExpensesContext'; // !
+import { ExpensesContext } from '../context/ExpensesContext'; 
+import { AuthContext } from '../context/AuthContext';
 
 function AddExpenses() {
-    const { expenses, setExpenses } = useContext(ExpensesContext);//!
+    const { expenses, setExpenses } = useContext(ExpensesContext);
     const [name, setName] = useState("");
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState("");
     const [date, setDate] = useState("");
+    const { user } = useContext(AuthContext); //!
 
     function addExpenses(e) {
         e.preventDefault();
@@ -16,8 +18,16 @@ function AddExpenses() {
             return;
         }
 
-        const newExpenses = { name, amount, category, date };
-        setExpenses(prev => [...prev, newExpenses]);
+        const newExpense = { //!
+            id: Date.now().toString(),
+            name,
+            amount,
+            category,
+            date,
+            userId: user.uid
+        };
+
+        setExpenses(prev => [...prev, newExpense]);
 
         setName("");
         setAmount("");
@@ -25,9 +35,10 @@ function AddExpenses() {
         setDate("");
     }
 
+
     function handleSetAmount(event) {
         const value = event.target.value;
-
+        
         if (isNaN(value)) {
             window.alert("Enter a valid number");
             return;

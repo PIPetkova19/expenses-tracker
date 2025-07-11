@@ -1,11 +1,16 @@
 import React, { useContext } from 'react';
 import { ExpensesContext } from '../context/ExpensesContext';
+import { AuthContext } from '../context/AuthContext';
 
 function ExpensesTracker() {
     const { expenses, setExpenses } = useContext(ExpensesContext);
+    const { user } = useContext(AuthContext); //!
 
-    function deleteExpense(index) {
-        setExpenses(prev => prev.filter((_, i) => i !== index));
+    // Филтрирам само разходите на текущия потребител
+    const userExpenses = expenses.filter(expense => expense.userId === user.uid);
+
+    function deleteExpense(id) {
+        setExpenses(prev => prev.filter(expense => expense.id !== id)); //!
     }
 
     return (
@@ -13,31 +18,32 @@ function ExpensesTracker() {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Amount</th>
-                        <th>Category</th>
-                        <th>Date</th>
-                        <th>Action</th>
+                        <th>Име</th>
+                        <th>Сума</th>
+                        <th>Категория</th>
+                        <th>Дата</th>
+                        <th>Действие</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {expenses.length === 0 ? (
-                        <tr><td colSpan="5">No expenses</td></tr>
+                    {userExpenses.length === 0 ? (
+                        <tr><td colSpan="5">Няма разходи</td></tr>
                     ) : (
-                        expenses.map((expense, index) => {
+                        userExpenses.map(expense => {
                             const dateObj = new Date(expense.date);
-                            
-                            const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/
-                            ${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/
-                            ${dateObj.getFullYear()}`;
+                            const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/` +
+                                `${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/` +
+                                `${dateObj.getFullYear()}`;
 
                             return (
-                                <tr key={index}>
+                                <tr key={expense.id}>
                                     <td>{expense.name}</td>
                                     <td>{expense.amount}</td>
                                     <td>{expense.category}</td>
                                     <td>{formattedDate}</td>
-                                    <td><button onClick={() => deleteExpense(index)}>Delete</button></td>
+                                    <td>
+                                        <button onClick={() => deleteExpense(expense.id)}>Изтрий</button>
+                                    </td>
                                 </tr>
                             );
                         })
