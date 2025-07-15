@@ -1,4 +1,3 @@
-
 import MonthlyChart from '../side-pages/MonthlyChart';
 import WeeklyChart from '../side-pages/WeeklyChart';
 
