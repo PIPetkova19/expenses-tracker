@@ -1,17 +1,51 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ExpensesContext } from '../context/ExpensesContext';
 import { AuthContext } from '../context/AuthContext';
+import { collection, query, where, onSnapshot, doc, deleteDoc } from "firebase/firestore";
+import { db } from '../firebase/firebase';
 
 function ExpensesTracker() {
+    const { user } = useContext(AuthContext);
     const { expenses, setExpenses } = useContext(ExpensesContext);
-    const { user } = useContext(AuthContext); //!
+    const [loading, setLoading] = useState(true);
 
-    // Филтрирам само разходите на текущия потребител
-    const userExpenses = expenses.filter(expense => expense.userId === user.uid);
+    useEffect(() => {
+        if (!user) {
+            setExpenses([]);
+            setLoading(false);
+            return;
+        }
 
-    function deleteExpense(id) {
-        setExpenses(prev => prev.filter(expense => expense.id !== id)); //!
+        setLoading(true);
+
+        const q = query(collection(db, "expenses"), where("userId", "==", user.uid));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            const fetchedExpenses = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setExpenses(fetchedExpenses);
+            setLoading(false);
+        }, (error) => {
+            console.error("Error fetching expenses:", error);
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
+    }, [user, setExpenses]);
+
+    async function deleteExpense(id) {
+        try {
+            await deleteDoc(doc(db, "expenses", id));
+        } catch (error) {
+            console.error("Error deleting expense:", error);
+            alert("Error deleting.");
+        }
     }
+
+    if (loading) return <p>Зареждане на разходите...</p>;
+    if (!user) return <p>Моля, влезте в профила си, за да видите разходите.</p>;
+    if (expenses.length === 0) return <p>Няма разходи.</p>;
 
     return (
         <div>
@@ -26,28 +60,26 @@ function ExpensesTracker() {
                     </tr>
                 </thead>
                 <tbody>
-                    {userExpenses.length === 0 ? (
-                        <tr><td colSpan="5">Няма разходи</td></tr>
-                    ) : (
-                        userExpenses.map(expense => {
-                            const dateObj = new Date(expense.date);
-                            const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/` +
-                                `${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/` +
-                                `${dateObj.getFullYear()}`;
+                    {expenses.map(expense => {
+                        // Ако датата е Firestore Timestamp, ползваме toDate()
+                        const dateObj = expense.date && expense.date.toDate ? expense.date.toDate() : new Date(expense.date);
 
-                            return (
-                                <tr key={expense.id}>
-                                    <td>{expense.name}</td>
-                                    <td>{expense.amount}</td>
-                                    <td>{expense.category}</td>
-                                    <td>{formattedDate}</td>
-                                    <td>
-                                        <button onClick={() => deleteExpense(expense.id)}>Изтрий</button>
-                                    </td>
-                                </tr>
-                            );
-                        })
-                    )}
+                        const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/` +
+                            `${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/` +
+                            `${dateObj.getFullYear()}`;
+
+                        return (
+                            <tr key={expense.id}>
+                                <td>{expense.name}</td>
+                                <td>{expense.amount}</td>
+                                <td>{expense.category}</td>
+                                <td>{formattedDate}</td>
+                                <td>
+                                    <button onClick={() => deleteExpense(expense.id)}>Изтрий</button>
+                                </td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
         </div>

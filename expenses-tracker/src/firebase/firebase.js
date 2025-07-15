@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";//!
 
 const firebaseConfig = {
     apiKey: "AIzaSyCbbNokkBhhg2JvoW76linxJIYprDuer6g",
@@ -16,4 +17,5 @@ const app = initializeApp(firebaseConfig);
 // Инстанция на Authentication (за login, signin, logout и т.н.)
 const auth = getAuth(app);
 
-export { app, auth };
+ const db = getFirestore(app); //!
+export { app, auth, db };//!
