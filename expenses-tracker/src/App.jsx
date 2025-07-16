@@ -8,32 +8,50 @@ import Login from "./registration/Login";
 import { ExpensesProvider } from "./context/ExpensesContext";
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './ProtectedRoute';
+import { IncomeProvider } from "./context/IncomeContext";
+import AddIncome from "./main-pages/AddIncome";
+import IncomeTracker from "./main-pages/IncomeTracker";
 
 function App() {
   return (
     <Router>
       <AuthProvider>
         <ExpensesProvider>
-          <Navbar />
-          <Routes>
-            <Route path="/sign-in" element={<Signin />} />
-            <Route path="/log-in" element={<Login />} />
-            <Route path="/" element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            } />
-            <Route path="/add-expenses" element={
-              <ProtectedRoute>
-                <AddExpenses />
-              </ProtectedRoute>
-            } />
-            <Route path="/track-expenses" element={
-              <ProtectedRoute>
-                <ExpensesTracker />
-              </ProtectedRoute>
-            } />
-          </Routes>
+          <IncomeProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/sign-in" element={<Signin />} />
+              <Route path="/log-in" element={<Login />} />
+
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              } />
+
+              <Route path="/add-expenses" element={
+                <ProtectedRoute>
+                  <AddExpenses />
+                </ProtectedRoute>
+              } />
+              <Route path="/track-expenses" element={
+                <ProtectedRoute>
+                  <ExpensesTracker />
+                </ProtectedRoute>
+              } />
+
+              <Route path="/add-income" element={
+                <ProtectedRoute>
+                  <AddIncome />
+                </ProtectedRoute>
+              } />
+              <Route path="/track-income" element={
+                <ProtectedRoute>
+                  <IncomeTracker />
+                </ProtectedRoute>
+              } />
+            </Routes>
+          </IncomeProvider>
         </ExpensesProvider>
       </AuthProvider>
     </Router>

@@ -73,7 +73,7 @@ function WeeklyChart() {
         labels: dayLabels,
         datasets: [
             {
-                label: 'Weekly expenses',
+                label: 'expenses',
                 data: weekTotals,
                 borderColor: 'rgb(247, 113, 231)',
                 backgroundColor: 'rgb(247, 113, 231)',

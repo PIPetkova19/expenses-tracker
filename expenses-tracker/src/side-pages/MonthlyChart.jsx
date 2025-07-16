@@ -78,7 +78,7 @@ function MonthlyChart() {
     labels: monthLabels,
     datasets: [
       {
-        label: 'Monthly Expenses',
+        label: 'expenses',
         data: monthTotals, //!
         borderColor: 'rgb(247, 113, 231)',
         backgroundColor: 'rgb(247, 113, 231)',

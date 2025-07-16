@@ -3,7 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { db } from '../firebase/firebase';
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 
-function AddExpense() {
+function AddIncome() {
     const { user } = useContext(AuthContext);
     const [name, setName] = useState("");
     const [amount, setAmount] = useState("");
@@ -22,7 +22,7 @@ function AddExpense() {
             return;
         }
 
-        const expense = {
+        const income = {
             name,
             amount: parseFloat(amount),
             category,
@@ -31,37 +31,32 @@ function AddExpense() {
         };
 
         try {
-            console.log("Expense to be added:", expense);
-            await addDoc(collection(db, "expenses"), expense);//!
-            alert("Expense added!");
+            console.log("Income to be added:", income);
+            await addDoc(collection(db, "income"), income);
+            alert("Income added!");
             setName("");
             setAmount("");
             setCategory("");
             setDate("");
         } catch (error) {
             console.error(error);
-            alert("Failed to add expense");
+            alert("Failed to add income");
         }
     }
 
     return (
         <div>
-            <h1 className="text-center mt-3 mb-4">Add Expenses</h1>
+            <h1 className="text-center mt-3 mb-4">Add Income</h1>
 
             <div className="d-flex justify-content-center">
                 <form onSubmit={handleSubmit}>
                     <div className="form-group mb-5">
-                        <input className="form-control mb-2" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Expenses name" />
-                        <input className="form-control mb-2" type="text" value={amount} onChange={handleSetAmount} placeholder="Expenses amount" />
+                        <input className="form-control mb-2" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Income name" />
+                        <input className="form-control mb-2" type="text" value={amount} onChange={handleSetAmount} placeholder="Income amount" />
                         <select className="form-control mb-2" value={category} onChange={(e) => setCategory(e.target.value)}>
                             <option value="">Choose...</option>
-                            <option value="food">Food</option>
-                            <option value="bills">Bills</option>
-                            <option value="car">Car</option>
-                            <option value="clothes">Clothes</option>
-                            <option value="health">Health</option>
-                            <option value="education">Education</option>
-                            <option value="entertainment">Entertainment</option>
+                            <option value="salary">Salary</option>
+                            <option value="parents">Parents</option>
                             <option value="others">Others</option>
                         </select>
                         <input className="form-control mb-2" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
@@ -75,4 +70,4 @@ function AddExpense() {
     );
 }
 
-export default AddExpense;
+export default AddIncome;
