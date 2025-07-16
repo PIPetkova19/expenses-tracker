@@ -26,3 +26,17 @@ font-weight: bold;
 color: red;
 text-decoration: underline;
 }
+
+#expenses-home-container {
+  width: 125px;
+  height: 100px;
+  border-radius: 5px;
+  background-color: rgb(255, 177, 193);
+  display: flex;
+  flex-direction: column;   
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  margin-left: 20px;
+}

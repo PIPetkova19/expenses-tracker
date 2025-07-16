@@ -11,28 +11,31 @@ function ExpensesTracker() {
 
     useEffect(() => {
         if (!user) {
-            setExpenses([]);
-            setLoading(false);
+            setExpenses([]); // Ако няма потребител, нулирам разходите
+            setLoading(false); // Спирам зареждането
             return;
         }
 
-        setLoading(true);
+        setLoading(true); // Започвам зареждане
 
+         // Създавам заявка към колекцията "expenses", филтрирана по userId
         const q = query(collection(db, "expenses"), where("userId", "==", user.uid));
+        // onSnapshot създава слушател в реално време за промените
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             const fetchedExpenses = querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
-            }));
-            setExpenses(fetchedExpenses);
+            })); 
+            setExpenses(fetchedExpenses);  // Обновявам разходите
             setLoading(false);
         }, (error) => {
             console.error("Error fetching expenses:", error);
             setLoading(false);
-        });
+        }); 
 
+    // Премахвам слушателя при напускане на компонента или промяна на user
         return () => unsubscribe();
-    }, [user, setExpenses]);
+    }, [user, setExpenses]); // Ефектът ще се изпълнява при промяна на user или setExpenses
 
     async function deleteExpense(id) {
         try {
