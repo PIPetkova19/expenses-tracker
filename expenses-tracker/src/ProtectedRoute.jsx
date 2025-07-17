@@ -10,7 +10,7 @@ export default function ProtectedRoute({ children }) {
     const { user } = useContext(AuthContext);//инфо за user или null
 
     if (!user) {
-        return <Navigate to="/sign-in" />;
+        return <Navigate to="/" />;
     }
 
     return children;

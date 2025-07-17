@@ -31,7 +31,6 @@ function AddIncome() {
         };
 
         try {
-            console.log("Income to be added:", income);
             await addDoc(collection(db, "income"), income);
             alert("Income added!");
             setName("");

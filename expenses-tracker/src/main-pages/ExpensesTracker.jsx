@@ -11,19 +11,22 @@ function ExpensesTracker() {
 
     useEffect(() => {
         if (!user) {
-            setExpenses([]); // Ако няма потребител, нулирам разходите
-            setLoading(false); // Спирам зареждането
+            //това не триe доходите от базата данни, 
+            // а просто променя локалното състояние на React компонента и го прави празен масив.
+            setExpenses([]); // Ако няма потребител, нулира разходите
+            setLoading(false); // Спира зареждането
             return;
         }
 
-        setLoading(true); // Започвам зареждане
+        setLoading(true); // Започва зареждане
 
-        // Създавам заявка към колекцията "expenses", филтрирана по userId
+        // Създава заявка към колекцията "expenses", филтрирана по userId
         const q = query(collection(db, "expenses"), where("userId", "==", user.uid));
         // onSnapshot създава слушател в реално време за промените
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             const fetchedExpenses = querySnapshot.docs.map(doc => ({
                 id: doc.id,
+                //всички полета от документа(name, amount...)
                 ...doc.data()
             }));
             setExpenses(fetchedExpenses);  // Обновявам разходите
@@ -33,7 +36,7 @@ function ExpensesTracker() {
             setLoading(false);
         });
 
-        // Премахвам слушателя при напускане на компонента или промяна на user
+        // Премахва слушателя при напускане на компонента или промяна на user
         return () => unsubscribe();
     }, [user, setExpenses]); // Ефектът ще се изпълнява при промяна на user или setExpenses
 
@@ -66,8 +69,13 @@ function ExpensesTracker() {
                 </thead>
                 <tbody>
                     {expenses.map(expense => {
-                        // Ако датата е Firestore Timestamp, ползваме toDate()
-                        const dateObj = expense.date && expense.date.toDate ? expense.date.toDate() : new Date(expense.date);
+                        // от Firestore Timestamp към JS Date
+                        //проверява дали съществува и дали има метод toDate, който е за Timestamp
+                        const dateObj = expense.date && expense.date.toDate
+                        //ако е Timestamp
+                         ? expense.date.toDate() 
+                         //ако е Date или String
+                         : new Date(expense.date);
 
                         const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/` +
                             `${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/` +

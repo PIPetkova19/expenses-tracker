@@ -24,16 +24,20 @@ function AddExpense() {
 
         const expense = {
             name,
+            //от string(защото е input поле) във float
             amount: parseFloat(amount),
             category,
+            //Timestamp-firebase валиден формат, Date-js формат
             date: Timestamp.fromDate(new Date(date)),
+            //свързва expense с конкретен user
             userId: user.uid
         };
 
         try {
-            console.log("Expense to be added:", expense);
-            await addDoc(collection(db, "expenses"), expense);//!
+            //записва нов ред в базата данни
+            await addDoc(collection(db, "expenses"), expense);
             alert("Expense added!");
+            //изчиства полетата
             setName("");
             setAmount("");
             setCategory("");

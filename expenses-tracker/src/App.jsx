@@ -11,6 +11,7 @@ import ProtectedRoute from './ProtectedRoute';
 import { IncomeProvider } from "./context/IncomeContext";
 import AddIncome from "./main-pages/AddIncome";
 import IncomeTracker from "./main-pages/IncomeTracker";
+import IntroPage from "./main-pages/IntroPage";
 
 function App() {
   return (
@@ -20,10 +21,12 @@ function App() {
           <IncomeProvider>
             <Navbar />
             <Routes>
+              <Route path="/" element={<IntroPage />} />
+
               <Route path="/sign-in" element={<Signin />} />
               <Route path="/log-in" element={<Login />} />
 
-              <Route path="/" element={
+              <Route path="/home" element={
                 <ProtectedRoute>
                   <Home />
                 </ProtectedRoute>

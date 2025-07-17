@@ -27,7 +27,7 @@ function Signin() {
             setFullName('');
             setEmail('');
             setPassword('');
-            navigate("/");
+            navigate("/home");
         } catch (error) {
             alert("Error: " + error.message);
         }

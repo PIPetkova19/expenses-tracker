@@ -22,7 +22,7 @@ function Login() {
             alert("Login successfull!");
             setEmail('');
             setPassword('');
-            navigate("/");// навигира към Home след login
+            navigate("/home");// навигира към Home след login
         } catch (error) {
             alert("Error: " + error.message);
         }

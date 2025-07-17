@@ -31,7 +31,8 @@ export function AuthProvider({ children }) {
     // отписва потребителя от Firebase
     const logout = () => {
         signOut(auth).then(() => {
-            navigate("/sign-in");
+            //към intro-page
+            navigate("/");
         }).catch((error) => {
             alert("Error: " + error.message);
         });
