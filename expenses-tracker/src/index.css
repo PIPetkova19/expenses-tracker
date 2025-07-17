@@ -1,3 +1,18 @@
+@font-face {
+  font-family: Rubik;
+  src: url(assets\fonts\Modak,Rubik\Rubik\Rubik-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: Coiny;
+  src: url(assets\fonts\Coiny\Coiny-Regular.ttf);
+}
+
+@font-face {
+  font-family: DynaPuff;
+  src: url(assets\fonts\DynaPuff\static\DynaPuff_SemiCondensed-Bold.ttf);
+}
+
 /*charts*/
 #my-chart {
   display: flex;
@@ -7,27 +22,78 @@
 }
 
 /*signin*/
-
-#signin-container {
-  border-radius: 5px;
-  background-color: rgb(255, 177, 193);
-  padding: 60px 50px;
-}
 /*login*/
-#login-msg {
-  font-weight: bold;
-}
 
 #login-link {
   font-weight: bold;
-  color: red;
+  color: rgba(24, 40, 72, 1);
   text-decoration: underline;
+  display: inline;
+  text-align: center;
+
 }
 
 #login-container {
-  border-radius: 5px;
-  background-color: rgb(255, 177, 193);
+  font-family: Rubik;
+  border-radius: 10%;
+  background-color: rgb(255, 255, 255);
   padding: 60px 40px;
+   max-width: 450px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-bottom: 60px;
+}
+
+#signin-container {
+  font-family: Rubik;
+  border-radius: 10%;
+  background-color: rgb(255, 255, 255);
+  padding: 40px 40px;
+  max-width: 450px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-bottom: 60px;
+}
+
+#email,
+#password,
+#fullName {
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 4px;
+  width: 100%;
+}
+
+.labels {
+  font-weight: bold;
+  text-align: center;
+
+}
+
+.header-registration {
+  font-size: 30px;
+}
+
+.submit-btn {
+  background-color: rgba(75, 108, 183, 1);
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background-color: rgba(24, 40, 72, 1);
+}
+
+#login-text,
+#login-msg {
+  line-height: 1.2;
+  color: rgb(56, 56, 56);
+  text-align: center;
+
 }
 
 /*home*/
@@ -51,25 +117,11 @@
 }
 
 /* Intro page */
-@font-face {
-  font-family: Rubik;
-  src: url(assets\fonts\Modak,Rubik\Rubik\Rubik-VariableFont_wght.ttf);
-}
-
-@font-face {
-  font-family: Coiny;
-  src: url(assets\fonts\Coiny\Coiny-Regular.ttf);
-}
-
-@font-face {
-  font-family: DynaPuff;
-  src: url(assets\fonts\DynaPuff\static\DynaPuff_SemiCondensed-Bold.ttf);
-}
 
 #title-intro {
   font-family: DynaPuff;
   font-size: 80px;
-   line-height: 1.1;
+  line-height: 1.1;
   background: radial-gradient(circle, rgba(75, 108, 183, 1) 0%, rgba(24, 40, 72, 1) 100%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -90,7 +142,6 @@
   transform: translate(-50%, -50%);
   text-align: center;
   padding: 1rem;
-
 }
 
 body {
@@ -99,9 +150,8 @@ body {
 }
 
 /*navbar*/
-#navbar-container{
+#navbar-container {
   background: #E3FFE7;
   background: radial-gradient(circle, rgba(227, 255, 231, 1) 0%, rgba(217, 231, 255, 1) 100%);
- border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
-

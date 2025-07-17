@@ -46,20 +46,24 @@ function Signin() {
     }
 
     return (
-        <div className="d-flex  justify-content-center align-items-center" style={{ height: '500px' }}>
+            <div className="w-100 w-md-50 d-flex justify-content-center align-items-center bg-white">
             <form onSubmit={handleSignin}>
                 <div id="signin-container" className="form-group">
-                    <label htmlFor="fullName">Name</label>
+                    <h1 className="text-center mt-1 header-registration">Sign up</h1>
+                       <div id="login-text"className='mb-3 mt-3'>Enter your details below  to create your account. </div>
+
+                    <label htmlFor="fullName" className="labels mb-2">Name</label>
                     <input type="text" id="fullName" className="form-control mb-3" value={fullName} onChange={handleFullNameChange} required></input>
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email" className="labels mb-2">Email</label>
                     <input type="email" id="email" className="form-control mb-3" value={email} onChange={handleEmailChange} required ></input>
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password" className="labels mb-2">Password</label>
                     <input type="password" id="password" className="form-control  mb-3" value={password} onChange={handlePasswordChange} required></input>
-                    <input className="btn btn-primary" type="submit"></input>
-                    <div>
-                        <span id="login-msg"> Already have an account?</span>
-                        <Link id="login-link" to="/log-in" className="nav-link">Log in</Link>
-                    </div>
+                      <hr className="mb-3 mt-3"/>
+                    <input className="btn btn-primary submit-btn mb-3" type="submit"></input>
+                    
+                        <span id="login-msg"> Already have an account? 
+                        <Link id="login-link" to="/log-in" className="nav-link"> Log in</Link></span>
+                
                 </div>
             </form>
         </div >
